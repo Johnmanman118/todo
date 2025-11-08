@@ -50,6 +50,8 @@ public class TodoController {
         taskService.save(task);
         return  ResponseEntity.ok(task);
     }
+
+    //Admins Can Access this
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ADMINTRAINEE')")
     @GetMapping("/tasks")
     public ResponseEntity<List<Task>> getAllTodoTasks(){
@@ -80,6 +82,7 @@ public class TodoController {
         return taskService.deleteTaskById(taskId);
     }
 
+    //Students with erite authority can access this
     @PreAuthorize("hasAuthority('student:write')")
     @DeleteMapping("tasks/delete")
     public Object deleteSomeTasks(@RequestBody() List<Integer> taskIds){
